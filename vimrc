@@ -1,4 +1,3 @@
-
 set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
@@ -78,7 +77,7 @@ let g:diminactive_enable_focus = 1
 " for termdebug config
 packadd termdebug
 let g:termdebug_wide=1
-leg g:termdebug_leftsource = 1
+let g:termdebug_leftsource = 1
 let g:termdebug_focussource = 1
 let g:termdebug_disable_toolbar = 1
 
