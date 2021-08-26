@@ -1,167 +1,246 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
+" VUNDLE FOR PLUGIN MANAGER
+Plugin 'VundleVim/Vundle.vim'
 
-" Vundle For Plugin Manager
-Plugin 'gmarik/Vundle.vim'
-
-" GUI related plugins
-Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/nerdtree'
-Plugin 'vim-airline/vim-airline' " vim status bar
+" GUI RELATED PLUGINS
+Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'nathanaelkane/vim-indent-guides'
-" Plugin 'The-NERD-Tree'
+Plugin 'scrooloose/nerdtree'
+Plugin 'PhilRunninger/nerdtree-visual-selection'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'junegunn/vim-slash'
+Plugin 'szw/vim-maximizer'
 
-" For commenting
+"" GIT GUI
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
+"Plugin 'xuyuanp/nerdtree-git-plugin' "incompatible issues in centos 8??
+
+""" FOR COMMENTING
 Plugin 'chrisbra/vim-commentary' 
+Plugin 'sakshamgupta05/vim-todo-highlight'
 
-" Git GUI 
-Plugin 'airblade/vim-gitgutter' " vim with git status(added, modified, and removed lines)
-Plugin 'tpope/vim-fugitive' " vim with git command(e.g., Gdiff)
-Plugin 'blueyed/vim-diminactive'
-Plugin 'Raimondi/delimitMate'
-
-" colorschemes
-Plugin 'joshdick/onedark.vim'
+" COLOR SCHEMES
 Plugin 'flazz/vim-colorschemes'
 Plugin 'morhetz/gruvbox'
 
-" Auto Complete
-Plugin 'valloric/youvompleteme' " need compiling
-Plugin 'CmdlineComplete'
+" SYNTATIC LANGUAGE SUPPORT
+Plugin 'w0rp/ale'
+Plugin 'natebosch/vim-lsc'
 
-" Jumping to definition
+" HIGHLIGHTING
+Plugin 'yggdroot/indentline'
+Plugin 'andymass/vim-matchup'
+Plugin 'machakann/vim-highlightedyank'
+
+" AUTO COMPLETE
+Plugin 'CmdlineComplete'
+" Plugin 'ycm-core/YouCompleteMe'
+
+" JUMPING TO DEFINITION
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'universal-ctags/ctags'
 
-" Jupyter-vim
-Plugin 'jupyter-vim/jupyter-vim'
+" USING THE SYSTEM CLIPBOARD
+Plugin 'christoomey/vim-system-copy'
+
+" DEBUG
+Plugin 'puremourning/vimspector' "I really should work on setting this up
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LANGUAGE SPECIFIC PLUGINS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PLUGIN FOR SCALA
+Plugin 'derekwyatt/vim-scala'
+
+" PLUGIN FOR GO
+Plugin 'fatih/vim-go'
 
 call vundle#end()
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set t_Co=256
+" colors
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set background=dark 
+colorscheme jellybeans
 
-nmap <F8> :Tagbar<CR>
-" for NERDTree
-let g:NERDTreeDirArrows=1
-let g:NERDTreeDirArrowExpandable='+'
-let g:NERDTreeDirArrowCollapsible='-'
+" syntax
+syntax enable
 
-" Exit Vim if NERDTree is the only window left.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
-    \ quit | endif
+" tabs and spaces
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
 
-" for auto bracket
-let delimitMate_expand_cr=1
+" backspace to prev line
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set backspace=indent,eol,start
 
-" for indent guide
-" let g:indentguides_spacechar = '??
-let g:indentguides_tabchar = '|'
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_start_level=2
-let g:indent_guides_guide_size=1
+" ui configs
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set number             " show line numbers
+" set relativenumber     " show relative numbering
+set showcmd            " show command on bottom bar
+set cursorline         " highlight current line
+set showmatch          " show matching [{()}]
+set wildmenu           " autocomplete for command line
+set updatetime=100     " some plugins require fast update time
+set ttyfast            " Improve redrawing
+set mouse+=a           " mouse support - necessary evil
+set encoding=utf-8     " set korean incodings
+set termencoding=utf-8 " set korean incodings
+set ttimeout           " faster esc
+set ttimeoutlen=50     " faster esc 50ms
+set clipboard=unnamedplus
+filetype indent on     " load filetype-specific indent files
+filetype plugin on     " load filetype-specific plugin files
+
+" search options
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set incsearch          " search as characters are entered
+set hlsearch           " highlight matches
+set ignorecase         " ignore case
+set smartcase          " but make it case sensitive if an uppercase in entered
 
 " for vim-airline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set noshowmode         " no show mode for default
+set laststatus=2       " turn on bottom bar
 let g:airline#extensions#tabline#enabled = 1 " turn on buffer list
-let g:airline_theme='badwolf'
-set laststatus=2 " turn on bottom bar
-let mapleader = "q"
-nnoremap <leader>w :bp<CR>
-nnoremap <leader>q :bn<CR>
+let g:airline_theme='distinguished'
 
-" for blueyed/vim-diminactive
-let g:diminactive_enable_focus = 1
+" for indentLine
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:indentLine_color_term = 243
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
-" for termdebug config
+" tmux color
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set term=screen-256color
+
+" buffer setup
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set hidden             " hide buffer
+" set autowrite          " for buffer autowrite
+
+" code folding
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set foldmethod=manual
+
+" better view for nerdtree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let NERDTreeIgnore =['\.o$']
+let NERDTreeSortOrder=['\.c$']
+
+" minimap visual
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:minimap_highlight='Visual'
+
+" highlighted yank config for older vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if !exists('##TextYankPost')
+    map y <Plug>(highlightedyank)
+endif
+
+
+" termdebug config
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 packadd termdebug
 let g:termdebug_wide=1
 let g:termdebug_leftsource = 1
 let g:termdebug_focussource = 1
 let g:termdebug_disable_toolbar = 1
 
-syntax enable 
-filetype plugin indent on
-highlight Comment term=bold cterm=bold ctermfg=4
 
-" tabs and spaces
-set ts=2
-set sts=2
-set shiftwidth=2
-set expandtab
+" add keywords like TODO, FIXME, NOTE, HACK, FEAT
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! UpdateTodoKeywords(...)
+  let newKeywords = join(a:000, " ")
+  let synTodo = map(filter(split(execute("syntax list"), '\n') , { i,v -> match(v, '^\w*Todo\>') == 0}), {i,v -> substitute(v, ' .*$', '', '')})
+  for synGrp in synTodo
+    execute "syntax keyword " . synGrp . " contained " . newKeywords
+  endfor
+endfunction
 
-" search options
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
+augroup now
+  autocmd!
+  autocmd Syntax * call UpdateTodoKeywords("NOTE", "HACK", "FEAT")
+augroup END
 
-" numbering
-set nu              " show line numbers
-" set relativenumber  " show relative numbering
+" ctags (jumping to def)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set tags=tags
 
-" auto indent
-set autoindent
-set cindent
-set smartindent cinwords=if,else,for,while,try,except,finally,def,class
+" auto update ctags when a file is written
+function! DelTagOfFile(file)
+	let fullpath = a:file
+	let cwd = getcwd()
+	let tagfilename = cwd . "/tags"
+	let f = substitute(fullpath, cwd . "/", "", "")
+	let f = escape(f, './')
+	let cmd = 'sed -i "/' . f . '/d" "' . tagfilename . '"'
+	let resp = system(cmd)
+endfunction
 
-set autowrite
-set autoread
-set paste
-set bs=eol,start,indent " using backspace
-set history=256
+function! UpdateTags()
+	let f = expand("%:p")
+	let cwd = getcwd()
+	let tagfilename = cwd . "/tags"
+	let cmd = 'ctags -a -f ' . tagfilename . ' --c++-kinds=+p --fields=+iaS --extra=+q ' . '"' . f . '"'
+	call DelTagOfFile(f)
+	let resp = system(cmd)
+endfunction
 
-" for vim-airline
-" set laststatus=2    " turn on bottom bar
-set noshowmode      " no show for default
-set showmatch 
-set smarttab
+autocmd BufWritePost *.cpp,*.h,*.c call UpdateTags()
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Don't make swap file
-set noswapfile
 
-" tmux color
-set term=screen-256color
+" -------------------------- Key Mappings ---------------------------
 
-set ruler
+" Buffers - next/previous : ctrl-k / ctrl-k
+nnoremap <silent> <C-l> :bn<CR>
+nnoremap <silent> <C-h> :bp<CR>
 
-set fileencodings=rtf8,euc-kr
+" Search results centered please
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+nnoremap <C-o> <C-o>zz
+nnoremap <C-i> <C-i>zz
 
-set background=dark
-colorscheme jellybeans
+" faster Scroll
+nnoremap <C-e> 10<C-e>
+nnoremap <C-y> 10<C-y>
 
-set tags+=/home/junseo/2021-1/OS/project3-hello-scheduler-team-9/tags
-
-"-------------key mapping--------------
-
-" for NERDTree
+" for nerdtree
 map <C-n> :NERDTreeToggle<CR>
 
-"Leader
-" let mapleader=" "   " leader is space
+" Leader
+let mapleader=" "       " leader is space
 
-" y d p P -- Quick copy&paste into system clipboard
-"nmap <Leader>y "+y
-"nmap <Leader>d "+d 
-"vmap <Leader>y "+y
-"vmap <Leader>d "+d
-"nmap <Leader>p "+p
-"nmap <Leader>P "+P
-"vmap <Leader>p "+p
-"vmap <Leader>P "+P
+"  y d p P   --  Quick copy paste into system clipboard
+nmap <Leader>y "+y
+nmap <Leader>d "+d
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
 
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
+" for minimap toggle
+let g:minimap_toggle='<leader>mt'
