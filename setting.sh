@@ -1,7 +1,11 @@
 OMZ_BASE=$HOME/.oh-my-zsh # FIXME
 
 ## Vim
+cp vimrc $HOME/.vimrc
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+## tmux
+cp tmux.conf $HOME/.tmux.conf
 
 ## zsh plugin
 # autojump
