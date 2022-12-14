@@ -11,3 +11,13 @@
   - for `zshrc`, you have to install `oh-my-zsh`
   - theme: eastwood
   - if you want to use the theme, you have to copy `eastwood.zsh-theme` to `~/.oh-my-zsh/themes/`
+
+## Easy Setting
+- Before you run the scripts, please fix the variables
+  - `OMZ_BASE` in `setting.sh`: the path of oh-my-zsh base directory
+  - `CONDA_BASE` in `zshrc`: the path of conda base directory
+  - Then execute the commands as below
+```
+$ ./omz_download.sh
+$ ./setting.sh
+```
