@@ -21,3 +21,18 @@
 $ ./omz_download.sh
 $ ./setting.sh
 ```
+## NVim
+```
+$ cp -r nvim ~/.config
+```
+- Check [this](https://github.com/jskimphys/js-linux-setup/blob/main/setup.sh) to install cargo/npm and tree-sitter binary
+
+## tmux
+```
+$ mv ~/.tmux.conf ~/.tmux.conf.bak # for backup
+$ cp tmux.conf ~/.tmux.conf
+$ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+$ tmux
+$ tmux source ~/.tmux.conf
+```
+Then, press `ctrl+s` + `I`
