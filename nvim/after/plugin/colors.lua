@@ -27,6 +27,7 @@ require('catppuccin').setup({
       NormalNC = { bg = black },
       SignColumn = { bg = black },
       CursorLine = { bg = black_soft },
+      Visual = { bg = '#333333' },
       LineNr = { bg = black, fg = linenr_gray },
       CursorLineNr = { bg = black, fg = linenr_current },
       VertSplit = { bg = black, fg = border_gray },
