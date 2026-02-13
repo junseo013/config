@@ -1,5 +1,73 @@
 vim.opt.termguicolors = true
-require("bufferline").setup{}
+
+local black = '#000000'
+local black_soft = '#0a0a0a'
+local border_gray = '#45475a'  -- catppuccin surface1-ish for borders
+
+require("bufferline").setup({
+  highlights = {
+    fill = { bg = black },
+    background = { bg = black },
+    buffer = { bg = black },
+    buffer_visible = { bg = black },
+    buffer_selected = { bg = black_soft },
+    tab = { bg = black },
+    tab_selected = { bg = black_soft },
+    tab_close = { bg = black },
+    close_button = { bg = black },
+    close_button_visible = { bg = black },
+    close_button_selected = { bg = black_soft },
+    numbers = { bg = black },
+    numbers_visible = { bg = black },
+    numbers_selected = { bg = black_soft },
+    separator = { bg = black, fg = border_gray },
+    separator_visible = { bg = black, fg = border_gray },
+    separator_selected = { bg = black_soft, fg = border_gray },
+    tab_separator = { bg = black, fg = border_gray },
+    tab_separator_selected = { bg = black_soft, fg = border_gray },
+    group_separator = { bg = black, fg = border_gray },
+    indicator_selected = { bg = black_soft },
+    indicator_visible = { bg = black },
+    modified = { bg = black },
+    modified_visible = { bg = black },
+    modified_selected = { bg = black_soft },
+    duplicate = { bg = black },
+    duplicate_visible = { bg = black },
+    duplicate_selected = { bg = black_soft },
+    trunc_marker = { bg = black, fg = border_gray },
+    -- diagnostics
+    diagnostic = { bg = black },
+    diagnostic_visible = { bg = black },
+    diagnostic_selected = { bg = black_soft },
+    hint = { bg = black },
+    hint_visible = { bg = black },
+    hint_selected = { bg = black_soft },
+    hint_diagnostic = { bg = black },
+    hint_diagnostic_visible = { bg = black },
+    hint_diagnostic_selected = { bg = black_soft },
+    info = { bg = black },
+    info_visible = { bg = black },
+    info_selected = { bg = black_soft },
+    info_diagnostic = { bg = black },
+    info_diagnostic_visible = { bg = black },
+    info_diagnostic_selected = { bg = black_soft },
+    warning = { bg = black },
+    warning_visible = { bg = black },
+    warning_selected = { bg = black_soft },
+    warning_diagnostic = { bg = black },
+    warning_diagnostic_visible = { bg = black },
+    warning_diagnostic_selected = { bg = black_soft },
+    error = { bg = black },
+    error_visible = { bg = black },
+    error_selected = { bg = black_soft },
+    error_diagnostic = { bg = black },
+    error_diagnostic_visible = { bg = black },
+    error_diagnostic_selected = { bg = black_soft },
+    pick = { bg = black },
+    pick_visible = { bg = black },
+    pick_selected = { bg = black_soft },
+  },
+})
 
 vim.keymap.set('n', '<C-l>', ':bn<CR>', { desc = 'go to the next buffer' })
 vim.keymap.set('n', '<C-h>', ':bp<CR>', { desc = 'go to the previous buffer' })
