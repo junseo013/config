@@ -57,22 +57,15 @@ return require('packer').startup(function(use)
   use('mbbill/undotree')
 
   use('tpope/vim-fugitive')
+  use('lewis6991/gitsigns.nvim')
 
-  -- lsp 
-  use {
-	  'VonHeikemen/lsp-zero.nvim',
-	  branch = 'v3.x',
-	  requires = {
-		  --- Uncomment the two plugins below if you want to manage the language servers from neovim
-		  {'williamboman/mason.nvim'},
-		  {'williamboman/mason-lspconfig.nvim'},
-
-		  {'neovim/nvim-lspconfig'},
-		  {'hrsh7th/nvim-cmp'},
-		  {'hrsh7th/cmp-nvim-lsp'},
-		  {'L3MON4D3/LuaSnip'},
-	  }
-  }
+  -- lsp (Neovim 0.11+ vim.lsp.config; no lsp-zero)
+  use('williamboman/mason.nvim')
+  use('williamboman/mason-lspconfig.nvim')
+  use('neovim/nvim-lspconfig')
+  use('hrsh7th/nvim-cmp')
+  use('hrsh7th/cmp-nvim-lsp')
+  use('L3MON4D3/LuaSnip')
 
   -- format
   --use('kdheepak/JuliaFormatter.vim')
