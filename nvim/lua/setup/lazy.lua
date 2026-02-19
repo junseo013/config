@@ -112,11 +112,17 @@ require("lazy").setup({
   -- language syntax parser (pinned to v0.9.x for Neovim 0.10 compat)
   {
     "nvim-treesitter/nvim-treesitter",
-    tag = "v0.9.3",
+    commit = "13be7a022997446bf96892bf1ac95784681a02e1", -- v0.9.3
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
-        -- parsers are already installed; auto_install adds new ones on demand
+        ensure_installed = {
+          "c", "cpp", "cuda", "rust", "python", "latex", "julia", "java", "verilog", "asm", "matlab",
+          "wgsl", "hlsl", "glsl",
+          "yaml", "toml", "csv",
+          "ssh_config", "tcl",
+          "lua", "vim", "vimdoc", "query",
+        },
         auto_install = true,
         highlight = {
           enable = true,
@@ -241,7 +247,7 @@ require("lazy").setup({
   { "williamboman/mason.nvim" },
   { "williamboman/mason-lspconfig.nvim" },
   { "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
-  { "neovim/nvim-lspconfig", tag = "v2.5.0" },
+  { "neovim/nvim-lspconfig", commit = "5bfcc89fd155b4ffc02d18ab3b7d19c2d4e246a7" },
   { "hrsh7th/cmp-nvim-lsp" },
   { "hrsh7th/nvim-cmp" },
   { "L3MON4D3/LuaSnip" },

@@ -77,6 +77,26 @@ end
 vim.cmd('filetype plugin indent on')
 vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2 softtabstop=2')
 
+-- Vulkan/GLSL shader extensions
+vim.filetype.add({
+  extension = {
+    rgen  = "glsl",
+    rahit = "glsl",
+    rint  = "glsl",
+    rchit = "glsl",
+    rmiss = "glsl",
+    rcall = "glsl",
+    comp  = "glsl",
+    vert  = "glsl",
+    frag  = "glsl",
+    geom  = "glsl",
+    tesc  = "glsl",
+    tese  = "glsl",
+    mesh  = "glsl",
+    task  = "glsl",
+  },
+})
+
 --------------------- LSP ------------------------------
 local lsp = require('lsp-zero')
 
