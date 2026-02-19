@@ -1,5 +1,5 @@
-require("theprimeagen.packer")
-require("theprimeagen.remap")
+require("setup.remap")
+require("setup.lazy")
 print("Welcome to Junseo's NeoVim!")
 
 -- tabs and spaces
@@ -13,8 +13,8 @@ vim.opt.expandtab = true
 vim.opt.backspace='indent,eol,start'
 
 --- ui configs
-vim.opt.number = true 
-vim.opt.showcmd  = true 
+vim.opt.number = true
+vim.opt.showcmd  = true
 vim.opt.cursorline = true  -- highlight current line
 vim.opt.showmatch = true         -- show matching [{()}]
 vim.opt.wildmenu = true          -- autocomplete for command line
@@ -25,8 +25,6 @@ vim.opt.encoding='utf-8'     -- set korean encodings (termencoding does not exis
 vim.opt.ttimeout  = true          -- faster esc
 vim.opt.ttimeoutlen=50     -- faster esc 50ms
 vim.opt.clipboard='unnamedplus'
---filetype indent on     -- load filetype-specific indent files
---filetype plugin on     -- load filetype-specific plugin files
 
 -- search options
 vim.opt.hlsearch = true
@@ -36,7 +34,6 @@ vim.opt.smartcase = true
 
 
 -- for vim-airline
--- vim.opt.noshowmode=true
 vim.opt.laststatus=2
 vim.opt.showtabline=2
 vim.opt.cmdheight=1
@@ -53,7 +50,7 @@ vim.opt.background='dark'
 vim.keymap.set('n', '<C-e>', '10<C-e>', { desc = 'faster scroll' })
 vim.keymap.set('n', '<C-y>', '10<C-y>', { desc = 'faster scroll' })
 
--- copy and paster from system clipboardv
+-- copy and paste from system clipboard
 vim.opt.clipboard='unnamedplus'
 vim.keymap.set('n', '<leader>y', '\"+y', { desc = 'copy to system clipboard' })
 vim.keymap.set('n', '<leader>d', '\"+d', { desc = 'copy to system clipboard' })
@@ -78,7 +75,50 @@ end
 
 -- filetype
 vim.cmd('filetype plugin indent on')
--- julia python indent
---vim.cmd('autocmd FileType julia setlocal shiftwidth=4 tabstop=4 softtabstop=4')
 vim.cmd('autocmd FileType python setlocal shiftwidth=2 tabstop=2 softtabstop=2')
 
+--------------------- LSP ------------------------------
+local lsp = require('lsp-zero')
+
+lsp.preset('recommended')
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(event)
+    local opts = {buffer = event.buf}
+
+    -- format with gq for C/C++/CUDA
+    if vim.bo.filetype == 'cpp' or vim.bo.filetype == 'c' or vim.bo.filetype == 'cuda' then
+      vim.keymap.set({'n', 'x'}, 'gq', function()
+        vim.lsp.buf.format({async = false, timeout_ms = 10000})
+      end, opts)
+    end
+  end
+})
+
+local cmp = require('cmp')
+local cmp_select = {behavior = cmp.SelectBehavior.Select}
+local cmp_mappings = lsp.defaults.cmp_mappings({
+  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+  ['<C-Space>'] = cmp.mapping.complete()
+})
+
+lsp.on_attach(function(client, bufnr)
+  lsp.default_keymaps({buffer = bufnr})
+end)
+
+lsp.setup()
+
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  automatic_enable = false,
+  ensure_installed = {
+    'clangd', 'pyright', 'lua_ls',
+  },
+  handlers = {
+    function(server_name)
+      require('lspconfig')[server_name].setup({})
+    end,
+  },
+})
